@@ -70,7 +70,7 @@ Be sure you have the correct Terraform version (0.13), you can choose the binary
 - [terraform-provider-ibm](https://github.com/IBM-Cloud/terraform-provider-ibm/releases) 1.34 (or later)
 - [Terraform](https://releases.hashicorp.com/terraform/) 0.13 (or later)
 
-For installation instructions, refer [here])https://ibm.github.io/cloud-enterprise-examples/iac/setup-environment/#install-terraform)
+For installation instructions, refer [here](https://ibm.github.io/cloud-enterprise-examples/iac/setup-environment/#install-terraform)
 
 ### Pre-commit hooks
 
