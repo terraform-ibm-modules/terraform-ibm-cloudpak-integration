@@ -16,7 +16,7 @@ For instructions to run using the local Terraform Client on your local machine g
 | Name                               | Description  | Default                     | Required |
 | ---------------------------------- | ----- | --------------------------- | -------- |
 | `cluster_id`                       | ID of the cluster to install cloud pak on. Cluster needs to be at least 4 nodes of size 16x64.|                             | Yes       |
-| `resource_group`                   | Resource Group in your account to host the cluster. List all available resource groups with: `ibmcloud resource groups`     | `cloud-pak-sandbox`         | Yes       |
+| `resource_group`                   | Resource Group in your account to host the cluster. List all available resource groups with: `ibmcloud resource groups`     | `Default`         | Yes       |
 | `storageclass`                   | Storage class to be used: Defaulted to `ibmc-file-gold-gid` for Classic Infrastructure. If using a VPC cluster, set to `portworx-rwx-gp3-sc` and make sure Portworx is set up on cluster  | `ibmc-file-gold-gid`         | Yes       |
 | `entitled_registry_key`            | Get the entitlement key from https://myibm.ibm.com/products-services/containerlibrary.   |                             | Yes      |
 | `entitled_registry_user_email`     | Email address of the user owner of the Entitled Registry Key   |                             | Yes      |
