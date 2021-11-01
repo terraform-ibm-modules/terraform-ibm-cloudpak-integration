@@ -8,7 +8,7 @@ For more information on IBM Schematics, refer [here](https://cloud.ibm.com/docs/
 
 ## Run using local Terraform Client
 
-For instructions to run using the local Terraform Client on your local machine go [here]([../Using_Terraform.md](https://ibm.github.io/cloud-enterprise-examples/iac/setup-environment/)). 
+For instructions to run using the local Terraform Client on your local machine go [here]([../Using_Terraform.md](https://ibm.github.io/cloud-enterprise-examples/iac/setup-environment/)).
 
 
 ### Inputs
@@ -52,4 +52,4 @@ Go into the console and delete the platform navigator from the verify section. D
 
 Finally, execute: `terraform destroy`.
 
-If running locally, There are some directories and files you may want to manually delete, these are: `rm -rf terraform.tfstate* .terraform .kube`
+If running locally, there are some directories and files you may want to manually delete, these are: `rm -rf terraform.tfstate* .terraform .kube`.
