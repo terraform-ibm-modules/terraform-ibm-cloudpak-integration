@@ -1,10 +1,17 @@
 # IBM Cloud Pak for Integration - Terraform Module
 
-This is a module and example to make it easier to provision Cloud Pak for Integration on an IBM Cloud Platform OpenShift Cluster provisioned on either Classic or VPC infrastructure.  The cluster is required to contain at least 4 nodes of size 16x64. If VPC is used, Portworx™ is required to provide necessary storage classes.
+This is a module and example to make it easier to provision Cloud Pak for Integration on an IBM Cloud Platform OpenShift Cluster provisioned on either Classic or VPC infrastructure.  The cluster is required to contain at least 4 nodes of size 16x64. If VPC is used on OpenShift 4.6 or earlier, Portworx™ is required to provide necessary storage classes. If VPC is used on OpenShift 4.7 or later, ODF is required to provide necessary storage classes. 
 
 ## Compatibility
 
 This module is meant for use with Terraform 0.13 (and higher).
+
+## Requirements
+
+### Terraform plugins
+
+- [Terraform](https://www.terraform.io/downloads.html) 0.13 (or later)
+- [terraform-provider-ibm](https://github.com/IBM-Cloud/terraform-provider-ibm) 1.34 (or later)
 
 ## Usage
 
@@ -51,15 +58,26 @@ module "cp4i" {
 
   namespace           = "cp4i"
 }
-
 ```
 
-## Requirements
+## Inputs
 
-### Terraform plugins
+| Name                               | Description  | Default                     | Required |
+| ---------------------------------- | ----- | --------------------------- | -------- |
+| `cluster_id`                       | ID of the cluster to install cloud pak on. Cluster needs to be at least 4 nodes of size 16x64.|                             | Yes       |
+| `resource_group`                   | Resource Group in your account to host the cluster. List all available resource groups with: `ibmcloud resource groups`     | `Default`         | Yes       |
+| `storageclass`                   | Storage class to be used: Defaulted to `ibmc-file-gold-gid` for Classic Infrastructure. If using a VPC cluster, set to `portworx-rwx-gp3-sc` and make sure Portworx is set up on cluster  | `ibmc-file-gold-gid`         | Yes       |
+| `entitled_registry_key`            | Get the entitlement key from https://myibm.ibm.com/products-services/containerlibrary.   |                             | Yes      |
+| `entitled_registry_user_email`     | Email address of the user owner of the Entitled Registry Key   |                             | Yes      |
 
-- [Terraform](https://www.terraform.io/downloads.html) 0.13 (or later)
-- [terraform-provider-ibm](https://github.com/IBM-Cloud/terraform-provider-ibm) 1.34 (or later)
+## Outputs
+
+| Name                               | Description  Required |
+| ---------------------------------- | ----- 
+| `endpoint`                       | Public URL to get to Cloud Pak for Integration Dashboard
+| `user`                   | Admin User Id for dashboard
+| `password`                   | Password for dashboard.  Be sure to reset after initial log in
+
 
 ## Install
 
@@ -67,7 +85,7 @@ module "cp4i" {
 
 Be sure you have the correct Terraform version (0.13), you can choose the binary here:
 
-- [terraform-provider-ibm](https://github.com/IBM-Cloud/terraform-provider-ibm/releases) 1.34 (or later)
+- [terraform-provider-ibm](https://github.com/IBM-Cloud/terraform-provider-ibm/releases) 1.34 (or earlier)
 - [Terraform](https://releases.hashicorp.com/terraform/) 0.13 (or later)
 
 For installation instructions, refer [here](https://ibm.github.io/cloud-enterprise-examples/iac/setup-environment/#install-terraform)
