@@ -62,17 +62,17 @@ module "cp4i" {
 
 ## Inputs
 
-| Name                               | Description  | Default                     | Required |
-| ---------------------------------- | ----- | --------------------------- | -------- |
-| `cluster_id`                       | ID of the cluster to install cloud pak on. Cluster needs to be at least 4 nodes of size 16x64.|                             | Yes       |
-| `resource_group`                   | Resource Group in your account to host the cluster. List all available resource groups with: `ibmcloud resource groups`     | `Default`         | Yes       |
-| `storageclass`                   | Storage class to be used: Defaulted to `ibmc-file-gold-gid` for Classic Infrastructure. If using a VPC cluster, set to `portworx-rwx-gp3-sc` and make sure Portworx is set up on cluster  | `ibmc-file-gold-gid`         | Yes       |
-| `entitled_registry_key`            | Get the entitlement key from https://myibm.ibm.com/products-services/containerlibrary.   |                             | Yes      |
-| `entitled_registry_user_email`     | Email address of the user owner of the Entitled Registry Key   |                             | Yes      |
+| Name                               | Description  | Type |Default                     | Required |
+| ---------------------------------- | ----- | --- | --------------------------- | -------- |
+| `cluster_id`                       | ID of the cluster to install cloud pak on. Cluster needs to be at least 4 nodes of size 16x64.|        string                     |  | Yes       |
+| `resource_group`                   | Resource Group in your account to host the cluster. List all available resource groups with: `ibmcloud resource groups`     | string | `Default`         | Yes       |
+| `storageclass`                   | Storage class to be used: Defaulted to `ibmc-file-gold-gid` for Classic Infrastructure. If using a VPC cluster, set to `portworx-rwx-gp3-sc` and make sure Portworx is set up on cluster  | string | `ibmc-file-gold-gid`         | string |Yes       |
+| `entitled_registry_key`            | Get the entitlement key from https://myibm.ibm.com/products-services/containerlibrary.   |    string |                         | Yes      |
+| `entitled_registry_user_email`     | Email address of the user owner of the Entitled Registry Key   | string |                            | Yes      |
 
 ## Outputs
 
-| Name                               | Description  Required |
+| Name                               | Description |
 | ---------------------------------- | ----- 
 | `endpoint`                       | Public URL to get to Cloud Pak for Integration Dashboard
 | `user`                   | Admin User Id for dashboard
