@@ -13,7 +13,7 @@ locals {
 
 # This section checks to see if the values have been updated through out the script running and is required for any dynamic value
 resource "null_resource" "install_cp4i" {
-  count = var.enable ? 1 : 0
+  # count = var.enable ? 1 : 0
 
   triggers = {
     namespace_sha1               = sha1(var.namespace)
@@ -43,7 +43,7 @@ resource "null_resource" "install_cp4i" {
 }
 
 data "external" "get_endpoints" {
-  count = var.enable ? 1 : 0
+  # count = var.enable ? 1 : 0
 
   depends_on = [
     null_resource.install_cp4i

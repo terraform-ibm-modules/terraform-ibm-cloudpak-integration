@@ -1,17 +1,7 @@
-# Example to provision CP4I Terraform Module
+# Module cloudpak-integration
+This example provisions the cloudpak-integration module to install Cloud Pak for Integration on an IBM Cloud Platform OpenShift Cluster provisioned on either Classic or VPC infrastructure.  The cluster is required to contain at least 4 nodes of size 16x64. If VPC is used on OpenShift 4.6 or earlier, Portworx™ is required to provide necessary storage classes. If VPC is used on OpenShift 4.7 or later, ODF is required to provide necessary storage classes.
 
-## Run using IBM Cloud Schematics
-
-For instructions to run these examples using IBM Schematics go [here]([../Using_Schematics.md](https://cloud.ibm.com/docs/schematics?topic=schematics-get-started-terraform))
-
-For more information on IBM Schematics, refer [here](https://cloud.ibm.com/docs/schematics?topic=schematics-get-started-terraform).
-
-## Run using local Terraform Client
-
-For instructions to run using the local Terraform Client on your local machine go [here]([../Using_Terraform.md](https://ibm.github.io/cloud-enterprise-examples/iac/setup-environment/)).
-
-
-### Inputs
+## Inputs
 
 | Name                               | Description  | Default                     | Required |
 | ---------------------------------- | ----- | --------------------------- | -------- |
@@ -31,6 +21,14 @@ If running locally, set the desired values for these variables in the `input.tfv
   entitled_registry_user_email = "john.doe@email.com"
 ```
 
+## Outputs
+
+| Name                               | Description |
+| ---------------------------------- | ----- 
+| `endpoint`                       | Public URL to get to Cloud Pak for Integration Dashboard
+| `user`                   | Admin User Id for dashboard
+| `password`                   | Password for dashboard.  Be sure to reset after initial log in
+
 ### Execute the example
 
 Execute the following Terraform commands:
@@ -43,8 +41,7 @@ terraform apply -auto-approve
 
 ### Verify
 
-To verify installation on the cluster, on the Openshift console go to the `Installed Operators` tab. Choose your `namespace` and click on `IBM Cloud Pak for Integration Platform Navigator
-4.2.0 provided by IBM`. Click on the `Platform Navigator` tab. Check the status of the cp4i-navigator
+To verify installation on the cluster, go to the `Installed Operators` tab on the Openshift console. Choose your `namespace` and click on `IBM Cloud Pak for Integration Platform Navigator 4.2.0 provided by IBM` . Click on the `Platform Navigator` tab. Check the status of the `cp4i-navigator`.
 
 ### Cleanup
 

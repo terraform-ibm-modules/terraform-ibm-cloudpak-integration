@@ -1,7 +1,7 @@
-variable "enable" {
-  default     = true
-  description = "If set to true installs Cloud-Pak for Integration on the given cluster"
-}
+# variable "enable" {
+#   default     = true
+#   description = "If set to true installs Cloud-Pak for Integration on the given cluster"
+# }
 
 variable "cluster_config_path" {
   default     = "./.kube/config"

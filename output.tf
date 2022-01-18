@@ -1,20 +1,20 @@
-output "cp4i_endpoint" {
+output "endpoint" {
   depends_on = [
     data.external.get_endpoints,
   ]
-  value = var.enable && length(data.external.get_endpoints) > 0 ? data.external.get_endpoints.0.result.endpoint : ""
+  value = length(data.external.get_endpoints) > 0 ? data.external.get_endpoints.result.endpoint : ""
 }
 
-output "cp4i_user" {
+output "user" {
   depends_on = [
     data.external.get_endpoints,
   ]
-  value = var.enable && length(data.external.get_endpoints) > 0 ? data.external.get_endpoints.0.result.username : ""
+  value = length(data.external.get_endpoints) > 0 ? data.external.get_endpoints.result.username : ""
 }
 
-output "cp4i_password" {
+output "password" {
   depends_on = [
     data.external.get_endpoints,
   ]
-  value = var.enable && length(data.external.get_endpoints) > 0 ? data.external.get_endpoints.0.result.password : ""
+  value = length(data.external.get_endpoints) > 0 ? data.external.get_endpoints.result.password : ""
 }
