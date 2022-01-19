@@ -50,7 +50,6 @@ data "ibm_container_cluster_config" "cluster_config" {
 // Cloud Pak for Integration module
 module "cp4i" {
   source = "../.."
-  enable = true
 
   // ROKS cluster parameters:
   cluster_config_path = data.ibm_container_cluster_config.cluster_config.config_file_path
