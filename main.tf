@@ -7,6 +7,7 @@ locals {
     namespace = var.namespace
   })
   navigator_content = templatefile("${path.module}/templates/navigator.yaml.tmpl", {
+    namespace = var.namespace
     storageclass = var.storageclass
   })
 }
