@@ -101,7 +101,7 @@ Run the following command to execute the pre-commit hooks defined in .pre-commit
 pre-commit run -a
 ```
 
-You can install pre-coomit tool using
+You can install pre-commit tool using
 
 ```bash
 pip install pre-commit
@@ -154,7 +154,7 @@ To execute and start building the configuration defined in the plan (provisions 
 terraform apply -var-file=./input.tfvars
 ```
 
-To destroy the VPC and all related resources
+To destroy all related resources
 
 ```bash
 terraform destroy -var-file=./input.tfvars
