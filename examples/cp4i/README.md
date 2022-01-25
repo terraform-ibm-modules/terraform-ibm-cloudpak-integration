@@ -24,7 +24,7 @@ If running locally, set the desired values for these variables in the `input.tfv
 ## Outputs
 
 | Name                               | Description |
-| ---------------------------------- | ----- 
+| ---------------------------------- | -----
 | `endpoint`                       | Public URL to get to Cloud Pak for Integration Dashboard
 | `user`                   | Admin User Id for dashboard
 | `password`                   | Password for dashboard.  Be sure to reset after initial log in

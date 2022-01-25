@@ -1,6 +1,6 @@
 # IBM Cloud Pak for Integration - Terraform Module
 
-This is a module and example to make it easier to provision Cloud Pak for Integration on an IBM Cloud Platform OpenShift Cluster provisioned on either Classic or VPC infrastructure.  
+This is a module and example to make it easier to provision Cloud Pak for Integration on an IBM Cloud Platform OpenShift Cluster provisioned on either Classic or VPC infrastructure.
 
 ## Compatibility
 
@@ -76,7 +76,7 @@ module "cp4i" {
 ## Outputs
 
 | Name                               | Description |
-| ---------------------------------- | ----- 
+| ---------------------------------- | -----
 | `endpoint`                       | Public URL to get to Cloud Pak for Integration Dashboard
 | `user`                   | Admin User Id for dashboard
 | `password`                   | Password for dashboard.  Be sure to reset after initial log in

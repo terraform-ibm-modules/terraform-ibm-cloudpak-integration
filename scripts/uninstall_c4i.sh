@@ -19,7 +19,7 @@ kubectl delete PlatformNavigator -n ${NAMESPACE} --all
 kubectl delete subscription -n ${NAMESPACE} --all
 kubectl delete csv -n ${NAMESPACE} --all
 kubectl delete OperatorGroup -n ${NAMESPACE} --all
-kubectl delete jobs -n cp4i --all 
+kubectl delete jobs -n cp4i --all
 kubectl delete pods -n cp4i --all
 kubectl delete ConfigMap couchdb-release redis-release -n ${NAMESPACE}
 kubectl delete catalogsource ibm-operator-catalog -n openshift-marketplace

@@ -72,15 +72,15 @@ while true; do
   if [ "$STATUS" == "Ready" ]; then
     break
   fi
-  
+
   if [ "$STATUS" == "Failed" ]; then
     echo '=== Installation has failed ==='
     exit 1
   fi
-  
+
   echo "Sleeping $SLEEP_TIME seconds..."
   sleep $SLEEP_TIME
-  
+
   (( i++ ))
   if [ "$i" -eq "$RUN_LIMIT" ]; then
     echo 'Timed out'
