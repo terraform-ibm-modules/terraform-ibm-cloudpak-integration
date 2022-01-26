@@ -169,6 +169,7 @@ export CLUSTER_ID="****************"
 export NAMESPACE="cp4i"
 ./scripts/uninstall_cp4i.sh
 ```
+Once all resources have been removed from the cluster, run `terraform destroy`.
 
 ## Note
 
