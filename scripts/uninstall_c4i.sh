@@ -2,7 +2,6 @@
 # export CLUSTER_ID="****************"
 # export NAMESPACE="cp4i"
 
-
 ibmcloud login -q -apikey $API_KEY
 ibmcloud ks cluster config -c $CLUSTER_ID --admin
 
@@ -29,6 +28,6 @@ kubectl delete secret ibm-entitlement-key -n openshift-operators
 kubectl delete secret ibm-entitlement-key -n ${NAMESPACE}
 kubectl delete namespace ${NAMESPACE}
 # remove kubernetes from finalizer
-kubectl get namespace ${NAMESPACE} -o json | jq 'del(.spec.finalizers[] | select(. == "kubernetes"))' > ${NAMESPACE}.json
-kubectl replace --raw "/api/v1/namespaces/${NAMESPACE}/finalize" -f ./${NAMESPACE}.json
-kubectl delete namespace ${NAMESPACE}
+#kubectl get namespace ${NAMESPACE} -o json | jq 'del(.spec.finalizers[] | select(. == "kubernetes"))' > ${NAMESPACE}.json
+#kubectl replace --raw "/api/v1/namespaces/${NAMESPACE}/finalize" -f ./${NAMESPACE}.json
+#kubectl delete namespace ${NAMESPACE}
