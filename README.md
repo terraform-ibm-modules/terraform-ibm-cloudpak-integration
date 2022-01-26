@@ -152,7 +152,7 @@ To destroy all related resources
 terraform destroy -var-file=./input.tfvars
 ```
 
-### Executing the Terraform Script
+## Executing the Terraform Script
 Run the following commands to execute the TF script (containing the modules to create/use ROKS and Portworx). Execution may take about 5-15 minutes:
 
 ```
