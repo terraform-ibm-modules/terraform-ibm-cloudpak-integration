@@ -10,16 +10,16 @@ This module is meant for use with Terraform 0.13 (and higher).
 
 OpenShift cluster is required that contains at least 4 nodes of size 16x64. If VPC is used on OpenShift 4.6 or earlier, Portworx™ is required to provide necessary storage classes. If VPC is used on OpenShift 4.7 or later, ODF is required to provide necessary storage classes.
 
-## Requirements
-
 ### Terraform plugins
 
 - [Terraform](https://www.terraform.io/downloads.html) 0.13 (or later)
 - [terraform-provider-ibm](https://github.com/IBM-Cloud/terraform-provider-ibm) 1.34 (or later)
 
+For installation instructions, refer [here](https://ibm.github.io/cloud-enterprise-examples/iac/setup-environment/#install-terraform)
+
 ## Usage
 
-A full example is in the [examples](./examples/cp4i) folder.
+A full example is located in the [examples](./examples/cp4i) folder.
 
 e.g:
 
@@ -84,14 +84,6 @@ module "cp4i" {
 
 ## Install
 
-### Terraform
-
-Be sure you have the correct Terraform version (0.13), you can choose the binary here:
-
-- [terraform-provider-ibm](https://github.com/IBM-Cloud/terraform-provider-ibm/releases) 1.34 (or earlier)
-- [Terraform](https://releases.hashicorp.com/terraform/) 0.13 (or later)
-
-For installation instructions, refer [here](https://ibm.github.io/cloud-enterprise-examples/iac/setup-environment/#install-terraform)
 
 ### Pre-commit hooks
 
@@ -159,6 +151,17 @@ To destroy all related resources
 ```bash
 terraform destroy -var-file=./input.tfvars
 ```
+
+### Executing the Terraform Script
+Run the following commands to execute the TF script (containing the modules to create/use ROKS and Portworx). Execution may take about 5-15 minutes:
+
+```
+terraform init
+terraform plan
+terraform apply -auto-approve
+```
+All optional parameters by default will be set to null in respective example's variable.tf file. If user wants to configure any optional parameters he has overwrite the default value in the input.tfvars file.
+
 ## Cleanup
 
 To uninstall Cloud Pak for Integration, an API KEY to the account running the cluster is required as is the cluster id. Once these are set, you can run the uninstall_cp4i.sh script to remove all resources and the namespace.  
