@@ -159,6 +159,16 @@ To destroy all related resources
 ```bash
 terraform destroy -var-file=./input.tfvars
 ```
+## Cleanup
+
+To uninstall Cloud Pak for Integration, an API KEY to the account running the cluster is required as is the cluster id. Once these are set, you can run the uninstall_cp4i.sh script to remove all resources and the namespace.  
+
+```
+export API_KEY="******************"
+export CLUSTER_ID="****************"
+export NAMESPACE="cp4i"
+./scripts/uninstall_cp4i.sh
+```
 
 ## Note
 
