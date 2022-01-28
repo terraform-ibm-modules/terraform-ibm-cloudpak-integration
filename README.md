@@ -164,7 +164,7 @@ All optional parameters by default will be set to null in respective example's v
 
 ## Cleanup
 
-To uninstall Cloud Pak for Integration, an API KEY to the account running the cluster is required as is the cluster id. Once these are set, you can run the uninstall_cp4i.sh script to remove all resources and the namespace.  
+To uninstall Cloud Pak for Integration, an API KEY to the account running the cluster is required as is the cluster id. Once these are set, you can run the uninstall_cp4i.sh script to remove all resources and the namespace.
 
 ```
 export API_KEY="******************"
