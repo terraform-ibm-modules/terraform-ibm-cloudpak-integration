@@ -49,9 +49,9 @@ func TestAccIBMCP4I(t *testing.T) {
 		t.Fatal("Wrong output")
 	}
 	fmt.Println("Cloud Pak for Integration Console User ID", user)
-	password := terraform.Output(t, terraformOptions, "password")
+	password := terraform.Output(t, terraformOptions, "password") //pragma: allowlist secret
 	if len(password) <= 0 {
 		t.Fatal("Wrong output")
 	}
-	fmt.Println("Cloud Pak for Integration Console Password", password) //pragma: allowlist secret
+	fmt.Println("Cloud Pak for Integration Console Password", password)
 }
