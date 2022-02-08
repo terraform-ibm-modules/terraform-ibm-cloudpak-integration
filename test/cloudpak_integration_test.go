@@ -53,5 +53,5 @@ func TestAccIBMCP4I(t *testing.T) {
 	if len(password) <= 0 {
 		t.Fatal("Wrong output")
 	}
-	fmt.Println("Cloud Pak for Integration Console Password", password)
+	fmt.Println("Cloud Pak for Integration Console Password", password) //pragma: allowlist secret
 }
