@@ -24,11 +24,11 @@ func TestAccIBMCP4I(t *testing.T) {
 
 		// Variables to pass to our Terraform code using -var options
 		Vars: map[string]interface{}{
-			"cluster_id":       "c7o6ji4d0kica8c9gmmg",
+			"cluster_id":       "",
 			"resource_group":   "Default",
 			"storageclass":     "ibmc-file-gold-gid",
-			"entitled_registry_key":  "*******",
-			"entitled_registry_email":  "*******",
+			"entitled_registry_key":  "", //pragma: allowlist secret
+			"entitled_registry_email":  "",
 		},
 	})
 
