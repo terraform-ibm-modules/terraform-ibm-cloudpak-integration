@@ -1,4 +1,5 @@
-# export API_KEY="******************"
+# Uncomment or manually set these variables.
+# export API_KEY="******************" //pragma: allowlist secret
 # export CLUSTER_ID="****************"
 # export NAMESPACE="cp4i"
 
