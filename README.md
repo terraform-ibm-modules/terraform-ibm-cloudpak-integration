@@ -1,21 +1,25 @@
-# IBM Cloud <module_name> - Terraform Module
+# IBM Cloud Pak for Integration - Terraform Module
 
-Mention the purpose of writing these modules.
-
-E.g:
-
-This is a collection of modules that make it easier to provision and configure Observability services like logging, monitor and activity tracker on IBM Cloud Platform:
-* [logging-logdna](modules/logging-logdna)
-* [monitoring-sysdig](modules/monitoring-sysdig)
-* [activity-tracker-logdna](modules/activity-tracker-logdna)
+This is a module and example to make it easier to provision Cloud Pak for Integration on an IBM Cloud Platform OpenShift Cluster provisioned on either Classic or VPC infrastructure.
 
 ## Compatibility
 
 This module is meant for use with Terraform 0.13 (and higher).
 
+## Pre-requisites
+
+OpenShift cluster is required that contains at least 4 nodes of size 16x64. If VPC is used on OpenShift 4.6 or earlier, Portworx™ is required to provide necessary storage classes. If VPC is used on OpenShift 4.7 or later, ODF is required to provide necessary storage classes.
+
+### Terraform plugins
+
+- [Terraform](https://www.terraform.io/downloads.html) 0.13 (or later)
+- [terraform-provider-ibm](https://github.com/IBM-Cloud/terraform-provider-ibm) 1.34 (or later)
+
+For installation instructions, refer [here](https://ibm.github.io/cloud-enterprise-examples/iac/setup-environment/#install-terraform)
+
 ## Usage
 
-Examples are captured in [examples](./examples/) folder, demonstarte how to use a module through a template:
+A full example is located in the [examples](./examples/cp4i) folder.
 
 e.g:
 
@@ -23,76 +27,97 @@ e.g:
 provider "ibm" {
 }
 
-data "ibm_resource_group" "logdna" {
-  name = var.resource_group
+data "ibm_resource_group" "group" {
+  name = var.resource_group_name
 }
 
-module "logdna_instance" {
-  source  = "terraform-ibm-modules/observability/ibm//modules/logging-logdna"
-
-
-  bind_resource_key   = var.bind_resource_key
-  service_name        = var.service_name
-  resource_group_id   = data.ibm_resource_group.logdna.id
-  plan                = var.plan
-  region              = var.region
-  service_endpoints   = var.service_endpoints
-  tags                = var.tags
-  resource_key_name   = var.resource_key_name
-  role                = var.role
-  resource_key_tags   = var.resource_key_tags
+// Make directory to store cluster config
+resource "null_resource" "mkdir_kubeconfig_dir" {
+  triggers = { always_run = timestamp() }
+  provisioner "local-exec" {
+    command = "mkdir -p ${local.kube_config_path}"
+  }
 }
 
+// Pull down the cluster configuration
+data "ibm_container_cluster_config" "cluster_config" {
+  depends_on = [null_resource.mkdir_kubeconfig_dir]
+  cluster_name_id   = var.cluster_id
+  resource_group_id = data.ibm_resource_group.group.id
+  config_dir        = local.kube_config_path
+}
+
+// Cloud Pak for Integration module
+module "cp4i" {
+  source = "../.."
+
+  // ROKS cluster parameters:
+  cluster_config_path = data.ibm_container_cluster_config.cluster_config.config_file_path
+  storageclass        = "ibmc-file-gold-gid"
+
+  // Entitled Registry parameters:
+  entitled_registry_key        = "<entitlement_key>"
+  entitled_registry_user_email = "<entitlement_email>"
+
+  namespace           = "cp4i"
+}
 ```
 
-## Requirements
+## Inputs
 
-### Terraform plugins
+| Name                               | Description  | Type |Default                     | Required |
+| ---------------------------------- | ----- | --- | --------------------------- | -------- |
+| `cluster_id`                       | ID of the cluster to install cloud pak on. Cluster needs to be at least 4 nodes of size 16x64.|        string                     |  | Yes       |
+| `resource_group`                   | Resource Group in your account to host the cluster. List all available resource groups with: `ibmcloud resource groups`     | string | `Default`         | Yes       |
+| `storageclass`                   | Storage class to be used: Defaulted to `ibmc-file-gold-gid` for Classic Infrastructure. If using a VPC cluster, set to `portworx-rwx-gp3-sc` and make sure Portworx is set up on cluster  | string | `ibmc-file-gold-gid`         | string |Yes       |
+| `entitled_registry_key`            | Get the entitlement key from https://myibm.ibm.com/products-services/containerlibrary.   |    string |                         | Yes      |
+| `entitled_registry_user_email`     | Email address of the user owner of the Entitled Registry Key   | string |                            | Yes      |
 
-- [Terraform](https://www.terraform.io/downloads.html) 0.13 (or later)
-- [terraform-provider-ibm](https://github.com/IBM-Cloud/terraform-provider-ibm)
+## Outputs
+
+| Name                               | Description |
+| ---------------------------------- | -----
+| `endpoint`                       | Public URL to get to Cloud Pak for Integration Dashboard
+| `user`                   | Admin User Id for dashboard
+| `password`                   | Password for dashboard.  Be sure to reset after initial log in
+
 
 ## Install
 
-### Terraform
-
-Be sure you have the correct Terraform version (0.13), you can choose the binary here:
-- https://releases.hashicorp.com/terraform/
-
-### Terraform plugins
-
-Be sure you have the compiled plugins on $HOME/.terraform.d/plugins/
-
-- [terraform-provider-ibm](https://github.com/IBM-Cloud/terraform-provider-ibm)
 
 ### Pre-commit hooks
 
 Run the following command to execute the pre-commit hooks defined in .pre-commit-config.yaml file
-```
+
+```bash
 pre-commit run -a
 ```
-You can install pre-coomit tool using
 
-```
+You can install pre-commit tool using
+
+```bash
 pip install pre-commit
 ```
+
 or
-```
+
+```bash
 pip3 install pre-commit
 ```
+
 ### Detect Secret hook
 
 Used to detect secrets within a code base.
 
 To create a secret baseline file run following command
 
-```
+```bash
 detect-secrets scan --update .secrets.baseline
 ```
 
 While running the pre-commit hook, if you encounter an error like
 
-```
+```console
 WARNING: You are running an outdated version of detect-secrets.
 Your version: 0.13.1+ibm.27.dss
 Latest version: 0.13.1+ibm.46.dss
@@ -101,28 +126,54 @@ See upgrade guide at https://ibm.biz/detect-secrets-how-to-upgrade
 
 run below command
 
-```
+```bash
 pre-commit autoupdate
 ```
+
 which upgrades all the pre-commit hooks present in .pre-commit.yaml file.
 
 ## How to input variable values through a file
 
 To review the plan for the configuration defined (no resources actually provisioned)
-```
+
+```bash
 terraform plan -var-file=./input.tfvars
 ```
+
 To execute and start building the configuration defined in the plan (provisions resources)
-```
+
+```bash
 terraform apply -var-file=./input.tfvars
 ```
 
-To destroy the VPC and all related resources
-```
+To destroy all related resources
+
+```bash
 terraform destroy -var-file=./input.tfvars
 ```
+
+## Executing the Terraform Script
+Run the following commands to execute the TF script (containing the modules to create/use ROKS and Portworx). Execution may take about 5-15 minutes:
+
+```
+terraform init
+terraform plan
+terraform apply -auto-approve
+```
+All optional parameters by default will be set to null in respective example's variable.tf file. If user wants to configure any optional parameters he has overwrite the default value in the input.tfvars file.
+
+## Cleanup
+
+To uninstall Cloud Pak for Integration, an API KEY to the account running the cluster is required as is the cluster id. Once these are set, you can run the uninstall_cp4i.sh script to remove all resources and the namespace.
+
+```
+export API_KEY="******************" // pragma: allowlist secret
+export CLUSTER_ID="****************"
+export NAMESPACE="cp4i"
+./scripts/uninstall_cp4i.sh
+```
+Once all resources have been removed from the cluster, run `terraform destroy`.
 
 ## Note
 
 All optional parameters, by default, will be set to `null` in respective example's variable.tf file. You can also override these optional parameters.
-

@@ -1,24 +1,34 @@
-/********************************************************************
+# variable "enable" {
+#   default     = true
+#   description = "If set to true installs Cloud-Pak for Integration on the given cluster"
+# }
 
-This file is used to declare ROOT varaibles.
+variable "cluster_config_path" {
+  default     = "./.kube/config"
+  description = "Path to the Kubernetes configuration file to access your cluster"
+}
 
-E.g:
-
-variable "at_service_name" {
+variable "storageclass" {
+  default     = "ibmc-file-gold-gid"
   type        = string
-  description = "Activity Tracker: The name of the activity tracker"
+  description = "Storage class to use.  If VPC, set to `portworx-rwx-gp3-sc` and make sure Portworx is set up on cluster"
 }
 
-variable "at_bind_key" {
-  description = "Activity Tracker: Enable this to bind key to instance (true/false)"
-  type        = bool
-  default     = false
+variable "entitled_registry_key" {
+  description = "Get the entitlement key from https://myibm.ibm.com/products-services/containerlibrary"
 }
 
-variable "at_create_instance" {
-  description = "Activity Tracker: Controls if Activity Tracker should be created"
-  type        = bool
-  default     = true
+variable "entitled_registry_user_email" {
+  description = "Docker email address"
 }
 
-********************************************************************/
+variable "namespace" {
+  default     = "cp4i"
+  description = "Namespace for Cloud Pak for Integration"
+}
+
+locals {
+  entitled_registry      = "cp.icr.io"
+  entitled_registry_user = "cp"
+  entitled_registry_key  = chomp(var.entitled_registry_key)
+}
