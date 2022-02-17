@@ -10,11 +10,11 @@ terraform {
       source  = "ibm-cloud/ibm"
       version = "1.34"
     }
-    external = {
-      source = "hashicorp/external"
-    }
-    null = {
-      source = "hashicorp/null"
-    }
+    # external = {
+    #   source = "hashicorp/external"
+    # }
+    # null = {
+    #   source = "hashicorp/null"
+    # }
   }
 }
