@@ -37,7 +37,7 @@ func TestAccIBMCP4I(t *testing.T) {
 			"owner"                = "terratest"
 			"roks_version"         = 4.7
 			"storage_class"        = "ibmc-file-gold-gid"
-			"entitled_registry_key" = ""
+			"entitled_registry_key" = "" //pragma: allowlist secret
 			"entitled_registry_user_email" = ""
 		},
 	})
