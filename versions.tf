@@ -1,6 +1,6 @@
 #####################################################
-# activity tracker as a service
-# Copyright 2020 IBM
+# Cloud Pak for Integration
+# Copyright 2022 IBM
 #####################################################
 
 terraform {
@@ -10,11 +10,8 @@ terraform {
       source  = "ibm-cloud/ibm"
       version = "1.34"
     }
-    # external = {
-    #   source = "hashicorp/external"
-    # }
-    # null = {
-    #   source = "hashicorp/null"
-    # }
+    null = {
+      source = "hashicorp/null"
+    }
   }
 }
