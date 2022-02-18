@@ -3,6 +3,11 @@
 # Copyright 2022 IBM
 #####################################################
 
+variable "ibmcloud_api_key" {
+  default     = ""
+  description = "IBMCloud API Key for the account the resources will be provisioned on. Go here to create an ibmcloud_api_key: https://cloud.ibm.com/iam/apikeys"
+}
+
 variable "project_name" {
   description = "Used to tag the cluster i.e. 'project:{project_name}'"
 }
@@ -114,6 +119,6 @@ variable "namespace" {
 }
 
 locals {
-  cluster_name                    = "${var.project_name}-${var.environment}-classic"
-  roks_version    = format("%s_openshift", split("_", var.roks_version)[0])
+  cluster_name = "${var.project_name}-${var.environment}-classic"
+  roks_version = format("%s_openshift", split("_", var.roks_version)[0])
 }
