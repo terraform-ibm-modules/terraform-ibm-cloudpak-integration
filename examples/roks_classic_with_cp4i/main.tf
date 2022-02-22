@@ -37,7 +37,7 @@ resource "null_resource" "mkdir_kubeconfig_dir" {
 
 data "ibm_container_cluster_config" "cluster_config" {
   depends_on        = [null_resource.mkdir_kubeconfig_dir]
-  cluster_name_id   = local.cluster_name
+  cluster_name_id   = module.classic_openshift_single_zone_cluster.classic_openshift_cluster_id
   resource_group_id = data.ibm_resource_group.rg.id
   config_dir        = var.config_dir
   admin             = true
