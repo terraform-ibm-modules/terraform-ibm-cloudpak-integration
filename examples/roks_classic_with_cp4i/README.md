@@ -20,7 +20,7 @@ This example provisions an IBM Cloud Platform OpenShift Classic Infrastructure C
 | `entitlement`               | Create your cluster with existing entitlement.|             true                | No       |
 | `force_delete_storage`               | Set to delete persistent storage of cluster when cluster is deprovisioned   |             true                | No       |
 | `roks_version`               | The OpenShift version that you want to set up in your cluster. |             true                | No       |
-| `storage_class`                   | Storage class to be used: Defaulted to `ibmc-file-gold-gid` for Classic Infrastructure. If using a VPC cluster, set to `portworx-rwx-gp3-sc` and make sure Portworx is set up on cluster  | `ibmc-file-gold-gid`         | Yes       |
+| `storage_class`                   | Storage class to be used: Defaulted to `ibmc-file-gold-gid` for Classic Infrastructure. If using a VPC cluster, set to `portworx-rwx-gp3-sc` and make sure Portworx is set up on cluster  | `ibmc-file-gold-gid`         | No       |
 | `entitled_registry_key`            | Get the entitlement key from https://myibm.ibm.com/products-services/containerlibrary.   |                             | Yes      |
 | `entitled_registry_user_email`     | Email address of the user owner of the Entitled Registry Key   |                             | Yes      |
 | `config_dir`     | Path to store cluster config file |       `./.kube/config`                      | No      |
