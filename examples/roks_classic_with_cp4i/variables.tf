@@ -4,6 +4,7 @@
 #####################################################
 
 variable "project_name" {
+  default     = "cp4i"
   description = "Used to tag the cluster i.e. 'project:{project_name}'"
 }
 
@@ -24,11 +25,13 @@ variable "region" {
 
 variable "resource_group" {
   description = "Enter Name of the resource group"
+  default     = "Default"
   type        = string
 }
 
 variable "worker_zone" {
   description = "The data center where the worker node is created. List all available zones with `ibmcloud ks zone ls --provider classic`"
+  default     = "us-south"
   type        = string
 }
 
