@@ -5,7 +5,7 @@ This example provisions an IBM Cloud Platform OpenShift Classic Infrastructure C
 
 | Name                               | Description  | Default                     | Required |
 | ---------------------------------- | ----- | --------------------------- | -------- |
-| `project_name`                       | The `project_name` is combined with `environment` to name the cluster. The cluster name will be '{project_name}-{environment}' and all the resources will be tagged with 'project:{project_name}'|         `cp4i`                    | Yes       |
+| `project_name`                       | The `project_name` is combined with `environment` to name the cluster. The cluster name will be '{project_name}-{environment}' and all the resources will be tagged with `project:{project_name}`|         `cp4i`                    | Yes       |
 | `environment`                      | The `environment` is combined with `project_name` to name the cluster. The cluster name will be '{project_name}-{environment}' and all the resources will be tagged with 'env:{environment}    | `dev`                   | No       |
 | `owner`                            | Use your user name or team name. The owner is used to label the cluster and other resources  | `anonymous`                 | Yes      |
 | `region`                           | IBM Cloud region to host the cluster. List all available zones with: `ibmcloud is regions`    | `us-south`                  | No       |
