@@ -1,5 +1,5 @@
-# Module cloudpak-integration
-This example provisions the cloudpak-integration module to install Cloud Pak for Integration on an IBM Cloud Platform OpenShift Cluster provisioned on either Classic or VPC infrastructure.  The cluster is required to contain at least 4 nodes of size 16x64. If VPC is used on OpenShift 4.6 or earlier, Portworx™ is required to provide necessary storage classes. If VPC is used on OpenShift 4.7 or later, ODF is required to provide necessary storage classes.
+# Module roks_classic_with_cp4i
+This example provisions an IBM Cloud Platform OpenShift Classic Infrastructure Cluster and installs the Cloud Pak for Integration on it.  To install Cloud Pak for Integration, a cluster is needed with at least 4 nodes of size 16x64. 
 
 ## Inputs
 
