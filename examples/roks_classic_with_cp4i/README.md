@@ -5,11 +5,11 @@ This example provisions an IBM Cloud Platform OpenShift Classic Infrastructure C
 
 | Name                               | Description  | Default                     | Required |
 | ---------------------------------- | ----- | --------------------------- | -------- |
-| `project_name`                       | The `project_name` is combined with `environment` to name the cluster. The cluster name will be `{project_name}-{environment}` and all the resources will be tagged with `project:{project_name}`|         `cp4i`                    | Yes       |
+| `project_name`                       | The `project_name` is combined with `environment` to name the cluster. The cluster name will be `{project_name}-{environment}` and all the resources will be tagged with `project:{project_name}`|         `cp4i`                    | No       |
 | `environment`                      | The `environment` is combined with `project_name` to name the cluster. The cluster name will be `{project_name}-{environment}` and all the resources will be tagged with `env:{environment}`    | `dev`                   | No       |
-| `owner`                            | Use your user name or team name. The owner is used to label the cluster and other resources  | `anonymous`                 | Yes      |
+| `owner`                            | Use your user name or team name. The owner is used to label the cluster and other resources  | `anonymous`                 | No      |
 | `region`                           | IBM Cloud region to host the cluster. List all available zones with: `ibmcloud is regions`    | `us-south`                  | No       |
-| `resource_group`                   | Resource Group in your account to host the cluster. List all available resource groups with: `ibmcloud resource groups`     | `Default`         | Yes       |
+| `resource_group`                   | Resource Group in your account to host the cluster. List all available resource groups with: `ibmcloud resource groups`     | `Default`         | No       |
 | `worker_zone`                       | The datacenter or zone in the region to provision the cluster. List all available zones with: `ibmcloud ks zone ls --provider classic`   | `dal10`                     | No       |
 | `workers_count`                       | Number of workers to provision.   | 4                     | No       |
 | `worker_pool_flavor`                       | The machine type for your worker node.   | `b3c.16x64`                     | No       |
