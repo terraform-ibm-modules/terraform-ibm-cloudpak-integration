@@ -3,11 +3,6 @@
 # Copyright 2022 IBM
 #####################################################
 
-variable "ibmcloud_api_key" {
-  default     = ""
-  description = "IBMCloud API Key for the account the resources will be provisioned on. Go here to create an ibmcloud_api_key: https://cloud.ibm.com/iam/apikeys"
-}
-
 variable "project_name" {
   description = "Used to tag the cluster i.e. 'project:{project_name}'"
 }
@@ -27,6 +22,11 @@ variable "region" {
   type        = string
 }
 
+variable "resource_group" {
+  description = "Enter Name of the resource group"
+  type        = string
+}
+
 variable "worker_zone" {
   description = "The data center where the worker node is created. List all available zones with `ibmcloud ks zone ls --provider classic`"
   type        = string
@@ -35,12 +35,13 @@ variable "worker_zone" {
 variable "workers_count" {
   description = "Number of worker nodes per zone"
   type        = number
-  default     = null
+  default     = 4
 }
 
 variable "worker_pool_flavor" {
   description = "The machine type for your worker node."
   type        = string
+  default     = "b3c.16x64"
 }
 
 variable "public_vlan" {
@@ -59,11 +60,6 @@ variable "hardware" {
   description = "The level of hardware isolation for your worker node."
   type        = string
   default     = "shared"
-}
-
-variable "resource_group" {
-  description = "Enter Name of the resource group"
-  type        = string
 }
 
 variable "master_service_public_endpoint" {
