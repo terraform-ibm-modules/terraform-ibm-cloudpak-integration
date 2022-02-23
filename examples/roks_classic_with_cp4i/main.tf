@@ -1,5 +1,5 @@
 provider "ibm" {
-  region           = var.region
+  region = var.region
 }
 
 data "ibm_resource_group" "rg" {
