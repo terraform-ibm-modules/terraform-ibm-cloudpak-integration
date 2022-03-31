@@ -30,7 +30,7 @@ variable "resource_group" {
 }
 
 variable "worker_zone" {
-  description = "The data center where the worker node is created. List all available zones with `ibmcloud ks zone ls --provider classic`"
+  description = "The data center where the worker node is created. List all available zones with `ibmcloud ks locations`"
   default     = "us-south"
   type        = string
 }
@@ -118,6 +118,6 @@ variable "namespace" {
 }
 
 locals {
-  cluster_name = "${var.project_name}-${var.environment}-classic"
+  cluster_name = "${var.project_name}-${var.environment}"
   roks_version = format("%s_openshift", split("_", var.roks_version)[0])
 }
