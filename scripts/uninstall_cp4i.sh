@@ -6,7 +6,6 @@
 #ibmcloud ks cluster config -c $CLUSTER_ID --admin
 
 echo "Deleting Resources"
-echo "KUBECONFIG=${KUBECONFIG}"
 echo "kubectl delete APIConnectCluster -n ${NAMESPACE} --all"
 kubectl delete APIConnectCluster -n ${NAMESPACE} --all
 echo "kubectl delete Dashboard -n ${NAMESPACE} --all"
@@ -40,7 +39,7 @@ kubectl delete ConfigMap couchdb-release redis-release -n ${NAMESPACE}
 echo "kubectl delete catalogsource ibm-operator-catalog -n openshift-marketplace"
 kubectl delete catalogsource ibm-operator-catalog -n openshift-marketplace
 echo "kubectl delete pv ibm-common-services/mongodbdir-icp-mongodb-0"
-kubectl delete pv ibm-common-services/mongodbdir-icp-mongodb-0
+kubectl delete pv mongodbdir-icp-mongodb-0
 echo "kubectl delete secret ibm-entitlement-key -n default" 
 kubectl delete secret ibm-entitlement-key -n default
 echo "kubectl delete secret ibm-entitlement-key -n openshift-operators"
