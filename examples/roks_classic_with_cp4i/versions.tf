@@ -1,8 +1,3 @@
-#####################################################
-# Cloud Pak for Integration
-# Copyright 2022 IBM
-#####################################################
-
 terraform {
   required_version = ">= 0.13"
   required_providers {

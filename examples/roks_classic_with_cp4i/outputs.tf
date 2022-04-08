@@ -3,7 +3,7 @@ output "url" {
   value       = module.cp4i.endpoint
 }
 
-output "user_id" {
+output "user" {
   description = "Username for your Cloud Pak for Integration deployment."
   value       = module.cp4i.user
 }

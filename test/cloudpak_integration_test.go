@@ -8,7 +8,7 @@ package test
 
 import (
 	"testing"
-
+    "os"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
@@ -20,15 +20,24 @@ func TestAccIBMCP4I(t *testing.T) {
 	// terraform testing.
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		// The path to where our Terraform code is located
-		TerraformDir: "../examples/cp4i",
+		TerraformDir: "../examples/roks_classic_with_cp4i",
 
 		// Variables to pass to our Terraform code using -var options
 		Vars: map[string]interface{}{
-			"cluster_id":       "",
-			"resource_group":   "Default",
-			"storageclass":     "ibmc-file-gold-gid",
-			"entitled_registry_key":  "", //pragma: allowlist secret
-			"entitled_registry_email":  "",
+			"region"		       = "us-south"
+			"worker_zone"          = "dal12"
+			"resource_group"       = "default"
+			"workers_count"        = 4
+			"worker_pool_flavor"   = "b3c.16x64"
+			"public_vlan"          = ""
+			"private_vlan"         = ""
+			"force_delete_storage" = true
+			"project_name"         = "cp4i"
+			"environment"          = "test"
+			"owner"                = "terratest"
+			"roks_version"         = 4.7
+			"entitled_registry_key" = os.Getenv(CP_ENTITLEMENT) //pragma: allowlist secret
+			"entitled_registry_user_email" = os.Getenv(CP_ENTITLEMENT_EMAIL)
 		},
 	})
 
