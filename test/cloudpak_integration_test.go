@@ -37,7 +37,7 @@ func TestAccIBMCP4I(t *testing.T) {
 			"owner":		"terratest",
 			"roks_version":		4.7,
 			"entitled_registry_key":	os.Getenv(CP_ENTITLEMENT), //pragma: allowlist secret
-			"entitled_registry_user_email":	os.Getenv(CP_ENTITLEMENT_EMAIL)
+			"entitled_registry_user_email":	os.Getenv(CP_ENTITLEMENT_EMAIL),
 		},
 	})
 
