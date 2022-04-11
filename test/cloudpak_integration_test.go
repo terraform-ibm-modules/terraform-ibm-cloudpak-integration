@@ -24,20 +24,20 @@ func TestAccIBMCP4I(t *testing.T) {
 
 		// Variables to pass to our Terraform code using -var options
 		Vars: map[string]interface{}{
-			"region"		       = "us-south"
-			"worker_zone"          = "dal12"
-			"resource_group"       = "default"
-			"workers_count"        = 4
-			"worker_pool_flavor"   = "b3c.16x64"
-			"public_vlan"          = ""
-			"private_vlan"         = ""
-			"force_delete_storage" = true
-			"project_name"         = "cp4i"
-			"environment"          = "test"
-			"owner"                = "terratest"
-			"roks_version"         = 4.7
-			"entitled_registry_key" = os.Getenv(CP_ENTITLEMENT) //pragma: allowlist secret
-			"entitled_registry_user_email" = os.Getenv(CP_ENTITLEMENT_EMAIL)
+			"region":     		"us-south",
+			"worker_zone":		"dal12",
+			"resource_group":	"default",
+			"workers_count":	4,
+			"worker_pool_flavor":	"b3c.16x64",
+			"public_vlan":		"",
+			"private_vlan":		"",
+			"force_delete_storage":	true,
+			"project_name":		"cp4i",
+			"environment":		"test",
+			"owner":		"terratest",
+			"roks_version":		4.7,
+			"entitled_registry_key":	os.Getenv(CP_ENTITLEMENT), //pragma: allowlist secret
+			"entitled_registry_user_email":	os.Getenv(CP_ENTITLEMENT_EMAIL)
 		},
 	})
 
