@@ -1,5 +1,5 @@
 # Uncomment or manually set these variables.
-# export API_KEY="******************"
+# export API_KEY="******************" #pragma: allowlist secret
 # export CLUSTER_ID="****************"
 # export NAMESPACE="cp4i"
 #ibmcloud login -q --apikey $API_KEY
