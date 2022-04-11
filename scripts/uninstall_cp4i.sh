@@ -1,5 +1,5 @@
 # Uncomment or manually set these variables.
-# export API_KEY="******************" 
+# export API_KEY="******************"
 # export CLUSTER_ID="****************"
 # export NAMESPACE="cp4i"
 #ibmcloud login -q --apikey $API_KEY
@@ -40,7 +40,7 @@ echo "kubectl delete catalogsource ibm-operator-catalog -n openshift-marketplace
 kubectl delete catalogsource ibm-operator-catalog -n openshift-marketplace
 echo "kubectl delete pv ibm-common-services/mongodbdir-icp-mongodb-0"
 kubectl delete pv mongodbdir-icp-mongodb-0
-echo "kubectl delete secret ibm-entitlement-key -n default" 
+echo "kubectl delete secret ibm-entitlement-key -n default"
 kubectl delete secret ibm-entitlement-key -n default
 echo "kubectl delete secret ibm-entitlement-key -n openshift-operators"
 kubectl delete secret ibm-entitlement-key -n openshift-operators
