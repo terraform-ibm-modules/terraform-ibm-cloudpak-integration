@@ -40,12 +40,12 @@ echo "kubectl delete catalogsource ibm-operator-catalog -n openshift-marketplace
 kubectl delete catalogsource ibm-operator-catalog -n openshift-marketplace
 echo "kubectl delete pv ibm-common-services/mongodbdir-icp-mongodb-0"
 kubectl delete pv mongodbdir-icp-mongodb-0
-echo "kubectl delete secret ibm-entitlement-key -n default"
-kubectl delete secret ibm-entitlement-key -n default
-echo "kubectl delete secret ibm-entitlement-key -n openshift-operators"
-kubectl delete secret ibm-entitlement-key -n openshift-operators
-echo "kubectl delete secret ibm-entitlement-key -n ${NAMESPACE}"
-kubectl delete secret ibm-entitlement-key -n ${NAMESPACE}
+echo "kubectl delete secret ibm-entitlement-key -n default" #pragma: allowlist secret
+kubectl delete secret ibm-entitlement-key -n default #pragma: allowlist secret
+echo "kubectl delete secret ibm-entitlement-key -n openshift-operators" #pragma: allowlist secret
+kubectl delete secret ibm-entitlement-key -n openshift-operators #pragma: allowlist secret
+echo "kubectl delete secret ibm-entitlement-key -n ${NAMESPACE}" #pragma: allowlist secret
+kubectl delete secret ibm-entitlement-key -n ${NAMESPACE} #pragma: allowlist secret
 echo "kubectl delete namespace ${NAMESPACE}"
 kubectl delete namespace ${NAMESPACE}
 # remove kubernetes from finalizer
