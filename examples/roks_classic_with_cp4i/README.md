@@ -49,8 +49,8 @@ entitled_registry_user_email = "johndoe@ibm.com"
 
 | Name                               | Description |
 | ---------------------------------- | -----
-| `endpoint`                       | Public URL to get to Cloud Pak for Integration Dashboard
-| `user_id`                   | Admin User Id for dashboard
+| `url`                       | Public URL to get to Cloud Pak for Integration Dashboard
+| `user`                   | Admin User Id for dashboard
 | `password`                   | Password for dashboard.  Be sure to reset after initial log in
 
 ### Execute the example
