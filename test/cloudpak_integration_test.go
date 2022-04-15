@@ -26,14 +26,15 @@ func TestAccIBMCP4I(t *testing.T) {
 		TerraformDir: "../examples/roks_classic_with_cp4i",
 
 		// Variables to pass to our Terraform code using -var options
+		// Settings are for cloud account Humio 2129514
 		Vars: map[string]interface{}{
-			"region":     		"us-south",
-			"worker_zone":		"dal12",
-			"resource_group":	"default",
+			"region":     		"ca-tor",
+			"worker_zone":		"tor01",
+			"resource_group":	"cloud-pak-sandbox-ibm",
 			"workers_count":	4,
 			"worker_pool_flavor":	"b3c.16x64",
-			"public_vlan":		"",
-			"private_vlan":		"",
+			"public_vlan":		"3210212",
+			"private_vlan":		"3210214",
 			"force_delete_storage":	true,
 			"project_name":		"cp4i",
 			"environment":		"test",
