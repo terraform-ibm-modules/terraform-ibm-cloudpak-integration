@@ -48,8 +48,8 @@ func TestAccIBMCP4I(t *testing.T) {
 	terraform.InitAndApply(t, terraformOptions)
 
 	// Run `terraform output` to get the value of an output variable
-	endpoint := terraform.Output(t, terraformOptions, "endpoint")
-	if len(endpoint) <= 0 {
+	url := terraform.Output(t, terraformOptions, "url")
+	if len(url) <= 0 {
 		t.Fatal("Wrong output")
 	}
 	fmt.Println("Cloud Pak for Integration Console URL", endpoint)
