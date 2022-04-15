@@ -1,4 +1,4 @@
-# Module roks_classic_with_cp4i
+# Example roks_classic_with_cp4i
 This example provisions an IBM Cloud Platform Classic Infrastructure OpenShift Cluster and installs the Cloud Pak for Integration on it.  To install Cloud Pak for Integration, a cluster is needed with at least 4 nodes of size 16x64.
 
 ## Inputs
