@@ -7,8 +7,9 @@ https://github.com/terraform-ibm-modules/terraform-ibm-function/blob/main/test/c
 package test
 
 import (
-	"testing"
-    "os"
+ 	"testing"
+      	"os"
+	"fmt"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
@@ -16,6 +17,8 @@ import (
 func TestAccIBMCP4I(t *testing.T) {
 	t.Parallel()
 
+	fmt.Println("CP_ENTITLEMENT: ", os.Getenv("CP_ENTITLEMENT"))
+	fmt.Println("CP_ENTITLEMENT_EMAIL: ", os.Getenv("CP_ENTITLEMENT_EMAIL"))
 	// Construct the terraform options with default retryable errors to handle the most common retryable errors in
 	// terraform testing.
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
@@ -36,8 +39,8 @@ func TestAccIBMCP4I(t *testing.T) {
 			"environment":		"test",
 			"owner":		"terratest",
 			"roks_version":		4.7,
-			"entitled_registry_key":	os.Getenv(CP_ENTITLEMENT), //pragma: allowlist secret
-			"entitled_registry_user_email":	os.Getenv(CP_ENTITLEMENT_EMAIL),
+			"entitled_registry_key":	os.Getenv("CP_ENTITLEMENT"), //pragma: allowlist secret
+			"entitled_registry_user_email":	os.Getenv("CP_ENTITLEMENT_EMAIL"),
 		},
 	})
 
