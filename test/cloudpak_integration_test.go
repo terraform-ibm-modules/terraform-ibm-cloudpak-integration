@@ -10,6 +10,7 @@ import (
  	"testing"
       	"os"
 	"fmt"
+	"math/rand"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
@@ -17,10 +18,10 @@ import (
 func TestAccIBMCP4I(t *testing.T) {
 	t.Parallel()
 
-	fmt.Println("CP_ENTITLEMENT: ", os.Getenv("CP_ENTITLEMENT"))
-	fmt.Println("CP_ENTITLEMENT_EMAIL: ", os.Getenv("CP_ENTITLEMENT_EMAIL"))
 	// Construct the terraform options with default retryable errors to handle the most common retryable errors in
 	// terraform testing.
+	randomName := rand.Intn(100)
+
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		// The path to where our Terraform code is located
 		TerraformDir: "../examples/roks_classic_with_cp4i",
@@ -36,7 +37,7 @@ func TestAccIBMCP4I(t *testing.T) {
 			"public_vlan":		"3210212",
 			"private_vlan":		"3210214",
 			"force_delete_storage":	true,
-			"project_name":		"cp4i",
+			"project_name":		"cp4i"+randomName,
 			"environment":		"test",
 			"owner":		"terratest",
 			"roks_version":		4.7,
