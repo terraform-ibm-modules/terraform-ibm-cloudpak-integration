@@ -118,6 +118,7 @@ variable "namespace" {
 }
 
 locals {
-  cluster_name = "${var.project_name}-${var.environment}"
+  cluster_name = "${var.project_name}-${var.environment}-${random_string.this.result}"
+  //cluster_name = "${var.project_name}-${var.environment}"
   roks_version = format("%s_openshift", split("_", var.roks_version)[0])
 }
