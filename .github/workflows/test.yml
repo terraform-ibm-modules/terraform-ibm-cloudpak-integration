@@ -43,7 +43,7 @@ jobs:
 
       - name: Run Test
         working-directory: test
-        run: go test -v ./...
+        run: go test -timeout 2h -v ./...
         env:
           IC_API_KEY: ${{ secrets.ACCESS_KEY }}
           CP_ENTITLEMENT: ${{ secrets.CP_ENTITLEMENT }}
