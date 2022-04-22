@@ -3,9 +3,9 @@ provider "ibm" {
 }
 
 resource "random_string" "this" {
-  length = 6
+  length  = 6
   special = false
-  upper = false
+  upper   = false
 }
 
 data "ibm_resource_group" "rg" {
