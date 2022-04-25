@@ -66,8 +66,9 @@ while true; do
     exit 1
   fi
 
-  echo $STATUS_LONG
+  #echo $STATUS_LONG
   STATUS=$(echo $STATUS_LONG | jq -c -r '.conditions[0].type')
+  echo $STATUS
 
   if [ "$STATUS" == "Ready" ]; then
     break
