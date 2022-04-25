@@ -69,6 +69,7 @@ while true; do
   echo "STATUS_LONG==$STATUS_LONG"
   STATUS=$(echo $STATUS_LONG | jq -c -r '.conditions[0].type')
   echo "STATUS == $STATUS"
+
   if [ "$STATUS" == "Ready" ]; then
     break
   fi
