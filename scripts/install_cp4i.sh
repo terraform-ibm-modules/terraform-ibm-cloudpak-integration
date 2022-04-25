@@ -70,11 +70,11 @@ while true; do
   STATUS=$(echo $STATUS_LONG | jq -c -r '.conditions[0].type')
   echo "STATUS == $STATUS"
 
-  if [ "$STATUS" == "Ready" ]; then
+  if [ "$STATUS" = "Ready" ]; then
     break
   fi
 
-  if [ "$STATUS" == "Failed" ]; then
+  if [ "$STATUS" = "Failed" ]; then
     echo '=== Installation has failed ==='
     exit 1
   fi
@@ -82,7 +82,7 @@ while true; do
   echo "Sleeping $SLEEP_TIME seconds..."
   sleep $SLEEP_TIME
 
-  (( i++ ))
+ i=$(( i+1 ))
   if [ "$i" -eq "$RUN_LIMIT" ]; then
     echo 'Timed out'
     exit 1
