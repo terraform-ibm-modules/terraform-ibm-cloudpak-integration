@@ -82,7 +82,7 @@ while true; do
   echo "Sleeping $SLEEP_TIME seconds..."
   sleep $SLEEP_TIME
 
- i=$(( i+1 ))
+ (( i+=1 ))
   if [ "$i" -eq "$RUN_LIMIT" ]; then
     echo 'Timed out'
     exit 1
