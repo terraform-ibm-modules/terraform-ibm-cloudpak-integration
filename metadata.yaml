@@ -4,7 +4,7 @@ name: "cloudpak-integration"
 namespace: "terraform-ibm-modules"
 version: "1.0"
 providers: ["ibm"]
-provider_logo_url: "/images/providers/observability.jpg"
+provider_logo_url: "/images/providers/cloudpak.jpg"
 description: "Terraform module to install and work with Cloud Pak for Integration on IBM Cloud"
 source: "https://github.com/terraform-ibm-modules/terraform-ibm-cloudpak-integration"
 owner: "ibmtfprovider"
@@ -16,7 +16,7 @@ tags: ["cloudpak","integration"]
 # Root module
 ###################################
 root:
-  - path: ""
+  - path: "github.com/terraform-ibm-modules/terraform-ibm-cloudpak-integration"
     name: "cloudpak-integration"
     provider_dependencies:
       - name: "ibm"
@@ -26,39 +26,35 @@ root:
     inputs:
       - name: "cluster_config_path"
         type: string
-        is_required: false
         description: "Path to the Kubernetes configuration file to access your cluster."
         example: "./.kube/config"
+        is_required: false
         is_sensitive: false
-        related_to: []
         is_nullable: false
         is_force_new: true
-        regex: "^([a-z]|[a-z][-a-z0-9]*[a-z0-9])$"
         is_provision_controller: false
         is_count_controller: false
       - name: "storageclass"
         type: string
-        is_required: false
         description: "Storage class to use."
         example: "ibmc-file-gold-gid"
+        default_value: "ibmc-file-gold-gid"
+        is_required: false
         is_sensitive: false
-        related_to: []
-        # is_nullable: false
-        # is_force_new: true
-        # is_provision_controller: true
-        # is_count_controller: true
+        is_nullable: false
+        is_force_new: false
+        is_provision_controller: false
+        is_count_controller: false
       - name: "entitled_registry_key"
         type : string
-        is_required: true
         description: "Cloud Pak entitlement key. Retrieve from https://myibm.ibm.com/products-services/containerlibrary"
-        example: ""
-        is_sensitive: false
+        is_required: true
+        is_sensitive: true
+        is_nullable: false
+        is_force_new: false
+        is_provision_controller: false
+        is_count_controller: false
         related_to: ["entitled_registry_user_email"]
-        regex: "^([a-z]|[a-z][-a-z0-9]*[a-z0-9])$"
-        # is_nullable: false
-        # is_force_new: false
-        # is_provision_controller: false
-        # is_count_controller: false
       - name: "entitled_registry_user_email"
         type : string
         is_required: true
@@ -67,39 +63,32 @@ root:
         is_sensitive: false
         related_to: ["entitled_registry_key"]
         regex: "^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
-        # is_nullable: false
-        # is_force_new: false
-        # is_provision_controller: false
-        # is_count_controller: false
       - name: "namespace"
         type : string
-        is_required: true
         description: "Namespace on cluster for Cloud Pak for Integration"
-        example: ""
+        default_value: "cp4i"
+        example: "cp4i"
+        is_required: true
         is_sensitive: false
-        related_to: []
+        is_nullable: false
+        is_force_new: false
+        is_provision_controller: false
+        is_count_controller: false
         regex: "^([a-z]|[a-z][-a-z0-9]*[a-z0-9])$"
-        # is_nullable: false
-        # is_force_new: false
-        # is_provision_controller: false
-        # is_count_controller: false
     outputs:
       - name: "endpoint"
         type : string
         description : "URL to get to Cloud Pak for Integration Console"
-        example: "cp4i-navigator-pn-cp4i.cp4i-test-2dmfzi-c0b572361ba41c9eef42d4d51297b04b-0000.ca-tor.containers.appdomain.cloud"
         is_sensitive: false
         related_to: ["user","password"]
       - name: "user"
         type : string
         description : "Admin User name for Cloud Pak for Integration Console"
-        example: "admin"
         is_sensitive: false
         related_to: ["endpoint","password"]
       - name: "password"
         type : string
         description : "Password for Cloud Pak for Integration Console. For security reasons, please change immediately"
-        example: "l7LpZQdcQPrQ5Lobn1p6pMbTiZ1g0NCi"
         is_sensitive: false
         related_to: ["endpoint","user"]
     locals:
@@ -117,31 +106,26 @@ root:
         related_to: ["entitled_registry","entitled_registry_key"]
       - name: "entitled_registry_key"
         type: string
-        example: ""
         description : "Chomped entitled_registry_key"
         is_hardcoded : true
         related_to: ["entitled_registry","entitled_registry_user"]
         derived_from: "entitled_registry_key"
       - name: "catalog_content"
         type: string
-        example: ""
         description : "Catalog yaml derived from template"
         is_hardcoded : false
-        related_to: []
         # derived_from: "${path.module}/templates/catalog.yaml.tmpl"
       - name: "subscription_content"
         type: string
         example: ""
         description : "Subscription yaml derived from template"
         is_hardcoded : false
-        related_to: []
         # derived_from: "${path.module}/templates/subscription.yaml.tmpl"
       - name: "navigator_content"
         type: string
         example: ""
         description : "Platform Navigator yaml derived from template"
         is_hardcoded : false
-        related_to: []
         # derived_from: "${path.module}/templates/navigator.yaml.tmpl"
     resources:
       - type : "null_resource"
