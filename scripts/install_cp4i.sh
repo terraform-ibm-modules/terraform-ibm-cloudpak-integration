@@ -56,34 +56,36 @@ kubectl apply -n ${NAMESPACE} -f -<<EOF
 ${NAVIGATOR_CONTENT}
 EOF
 
-SLEEP_TIME="60"
-RUN_LIMIT=200
-i=0
+sleep 7200
+# SLEEP_TIME="60"
+# RUN_LIMIT=200
+# i=0
 
-while true; do
-  if ! STATUS_LONG=$(kubectl -n ${NAMESPACE} get platformnavigator cp4i-navigator --output=json | jq -c -r '.status'); then
-    echo 'Error getting status'
-    exit 1
-  fi
+# while true; do
+#   if ! STATUS_LONG=$(kubectl -n ${NAMESPACE} get platformnavigator cp4i-navigator --output=json | jq -c -r '.status'); then
+#     echo 'Error getting status'
+#     exit 1
+#   fi
 
-  STATUS=$(echo ${STATUS_LONG} | jq -c -r '.conditions[0].type')
-  echo "STATUS == ${STATUS}"
+#   echo "STATUS_LONG == ${STATUS_LONG}"
+#   STATUS=$(echo ${STATUS_LONG} | jq -c -r '.conditions[0].type')
+#   echo "STATUS == ${STATUS}"
 
-  if [ "${STATUS}" = "Ready" ]; then
-    break
-  fi
+#   if [ "${STATUS}" = "Ready" ]; then
+#     break
+#   fi
 
-  if [ "${STATUS}" = "Failed" ]; then
-    echo '=== Installation has failed ==='
-    exit 1
-  fi
+#   if [ "${STATUS}" = "Failed" ]; then
+#     echo '=== Installation has failed ==='
+#     exit 1
+#   fi
 
-  echo "Sleeping $SLEEP_TIME seconds..."
-  sleep ${SLEEP_TIME}
+#   echo "Sleeping $SLEEP_TIME seconds..."
+#   sleep ${SLEEP_TIME}
 
-  i=$((i+1))
-  if [ "${i}" -eq "${RUN_LIMIT}" ]; then
-    echo 'Timed out'
-    exit 1
-  fi
-done
+#   i=$((i+1))
+#   if [ "${i}" -eq "${RUN_LIMIT}" ]; then
+#     echo 'Timed out'
+#     exit 1
+#   fi
+# done
