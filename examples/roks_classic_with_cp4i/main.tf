@@ -24,24 +24,9 @@ module "classic-openshift-single-zone-cluster" {
   worker_pool_flavor    = (var.worker_pool_flavor != null ? var.worker_pool_flavor : null)
   public_vlan           = (var.public_vlan != null ? var.public_vlan : null)
   private_vlan          = (var.private_vlan != null ? var.private_vlan : null)
-  # master_service_public_endpoint  = (var.master_service_public_endpoint != null ? var.master_service_public_endpoint : null)
-  # master_service_private_endpoint = (var.master_service_private_endpoint != null ? var.master_service_private_endpoint : null)
-  force_delete_storage = (var.force_delete_storage != null ? var.force_delete_storage : false)
-  # gateway_enabled                 = (var.gateway_enabled != null ? var.gateway_enabled : false)
-  # encrypt_local_disk              = (var.encrypt_local_disk != null ? var.encrypt_local_disk : true)
-  # no_subnet                       = (var.no_subnet != null ? var.no_subnet : false)
-  # subnet_id                       = (var.subnet_id != null ? var.subnet_id : [])
-  # update_all_workers              = (var.update_all_workers != null ? var.update_all_workers : false)
-  kube_version = local.roks_version
-  # kms_config                      = (var.kms_config != null ? var.kms_config :[])
-  # workers_info                    = (var.workers_info != null ? var.workers_info : [])
-  # webhook                         = (var.webhook != null ? var.webhook : [])
-  tags        = ["project:${var.project_name}", "env:${var.environment}", "owner:${var.owner}"]
-  entitlement = (var.entitlement != null ? var.entitlement : "")
-  # taints                          = (var.taints != null ? var.taints : [])
-  # create_timeout                  = (var.create_timeout != null ? var.create_timeout : null)
-  # update_timeout                  = (var.update_timeout != null ? var.update_timeout : null)
-  # delete_timeout                  = (var.delete_timeout != null ? var.delete_timeout : null)
+  kube_version          = local.roks_version
+  tags                  = ["project:${var.project_name}", "env:${var.environment}", "owner:${var.owner}"]
+  entitlement           = (var.entitlement != null ? var.entitlement : "")
 }
 
 resource "null_resource" "mkdir_kubeconfig_dir" {

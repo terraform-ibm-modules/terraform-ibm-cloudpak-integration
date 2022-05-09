@@ -22,8 +22,3 @@ variable "namespace" {
   description = "Namespace for Cloud Pak for Integration"
 }
 
-locals {
-  entitled_registry      = "cp.icr.io"
-  entitled_registry_user = "cp"
-  entitled_registry_key  = chomp(var.entitled_registry_key)
-}
