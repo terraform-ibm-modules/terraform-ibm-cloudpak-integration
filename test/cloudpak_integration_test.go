@@ -8,8 +8,8 @@ package test
 
 import (
  	"testing"
-    "os"
-	"fmt"
+    	"os"
+	/*"fmt"*/
 	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
