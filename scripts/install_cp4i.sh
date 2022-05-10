@@ -10,8 +10,12 @@ JOB_NAME="cloud-installer"
 WAITING_TIME=5
 
 echo "Waiting for Ingress domain to be created"
-while [[ -z $(kubectl get route -n openshift-ingress router-default -o jsonpath='{.spec.host}' 2>/dev/null) ]]; do
+route=$(kubectl get route -n openshift-ingress router-default -o jsonpath='{.spec.host}' 2>/dev/null)
+echo "route = ${route}"
+while [ -z "$route" ]; do
   sleep $WAITING_TIME
+  route=$(kubectl get route -n openshift-ingress router-default -o jsonpath='{.spec.host}' 2>/dev/null)
+  echo "route = ${route}"
 done
 
 # echo "Creating namespace ${NAMESPACE}"
