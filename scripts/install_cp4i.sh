@@ -56,7 +56,7 @@ kubectl apply -n ${NAMESPACE} -f -<<EOF
 ${NAVIGATOR_CONTENT}
 EOF
 
-sleep 7200
+sleep 3600
 # SLEEP_TIME="60"
 # RUN_LIMIT=200
 # i=0
