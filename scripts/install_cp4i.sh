@@ -11,11 +11,10 @@ WAITING_TIME=5
 
 echo "Waiting for Ingress domain to be created"
 route=$(kubectl get route -n openshift-ingress router-default -o jsonpath='{.spec.host}' 2>/dev/null)
-echo "route = ${route}"
 while [ -z "$route" ]; do
+  echo "Waiting for Ingress domain to be created"
   sleep $WAITING_TIME
   route=$(kubectl get route -n openshift-ingress router-default -o jsonpath='{.spec.host}' 2>/dev/null)
-  echo "route = ${route}"
 done
 
 # echo "Creating namespace ${NAMESPACE}"
@@ -60,36 +59,37 @@ kubectl apply -n ${NAMESPACE} -f -<<EOF
 ${NAVIGATOR_CONTENT}
 EOF
 
-sleep 3600
-# SLEEP_TIME="60"
-# RUN_LIMIT=200
-# i=0
+#sleep 3600
+SLEEP_TIME="60"
+RUN_LIMIT=80
+i=0
 
-# while true; do
-#   if ! STATUS_LONG=$(kubectl -n ${NAMESPACE} get platformnavigator cp4i-navigator --output=json | jq -c -r '.status'); then
-#     echo 'Error getting status'
-#     exit 1
-#   fi
+STATUS_LONG=$(kubectl -n ${NAMESPACE} get platformnavigator cp4i-navigator --output=json | jq -c -r '.status')
+echo "STATUS_LONG == ${STATUS_LONG}"
+while true; do
+  if ! STATUS_LONG=$(kubectl -n ${NAMESPACE} get platformnavigator cp4i-navigator --output=json | jq -c -r '.status'); then
+    echo 'Error getting status'
+    exit 1
+  fi
 
-#   echo "STATUS_LONG == ${STATUS_LONG}"
-#   STATUS=$(echo ${STATUS_LONG} | jq -c -r '.conditions[0].type')
-#   echo "STATUS == ${STATUS}"
+  STATUS=$(echo ${STATUS_LONG} | jq -c -r '.conditions[0].type')
+  echo "STATUS == ${STATUS}"
 
-#   if [ "${STATUS}" = "Ready" ]; then
-#     break
-#   fi
+  if [ "${STATUS}" = "Ready" ]; then
+    break
+  fi
 
-#   if [ "${STATUS}" = "Failed" ]; then
-#     echo '=== Installation has failed ==='
-#     exit 1
-#   fi
+  if [ "${STATUS}" = "Failed" ]; then
+    echo '=== Installation has failed ==='
+    exit 1
+  fi
 
-#   echo "Sleeping $SLEEP_TIME seconds..."
-#   sleep ${SLEEP_TIME}
+  echo "Sleeping $SLEEP_TIME seconds..."
+  sleep ${SLEEP_TIME}
 
-#   i=$((i+1))
-#   if [ "${i}" -eq "${RUN_LIMIT}" ]; then
-#     echo 'Timed out'
-#     exit 1
-#   fi
-# done
+  i=$((i+1))
+  if [ "${i}" -eq "${RUN_LIMIT}" ]; then
+    echo 'Timed out'
+    exit 1
+  fi
+done
