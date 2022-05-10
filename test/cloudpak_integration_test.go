@@ -50,7 +50,7 @@ func TestAccIBMCP4I(t *testing.T) {
 	terraform.InitAndApply(t, terraformOptions)
 
 	// Run `terraform output` to get the value of an output variable
-	url := terraform.Output(t, terraformOptions, "url")
+	/* url := terraform.Output(t, terraformOptions, "url")
 	if len(url) <= 0 {
 		t.Fatal("Wrong output")
 	}
@@ -64,5 +64,5 @@ func TestAccIBMCP4I(t *testing.T) {
 	if len(password) <= 0 {
 		t.Fatal("Wrong output")
 	}
-	fmt.Println("Cloud Pak for Integration Console Password", password)
+	fmt.Println("Cloud Pak for Integration Console Password", password)*/
 }
