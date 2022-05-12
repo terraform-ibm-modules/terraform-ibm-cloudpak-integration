@@ -7,8 +7,9 @@ https://github.com/terraform-ibm-modules/terraform-ibm-function/blob/main/test/c
 package test
 
 import (
-	"testing"
-
+ 	"testing"
+    	"os"
+	/*"fmt"*/
 	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
@@ -20,15 +21,25 @@ func TestAccIBMCP4I(t *testing.T) {
 	// terraform testing.
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		// The path to where our Terraform code is located
-		TerraformDir: "../examples/cp4i",
+		TerraformDir: "../examples/roks_classic_with_cp4i",
 
 		// Variables to pass to our Terraform code using -var options
+		// Settings are for cloud account Humio 2129514
 		Vars: map[string]interface{}{
-			"cluster_id":       "",
-			"resource_group":   "Default",
-			"storageclass":     "ibmc-file-gold-gid",
-			"entitled_registry_key":  "", //pragma: allowlist secret
-			"entitled_registry_email":  "",
+			"region":     		"ca-tor",
+			"worker_zone":		"tor01",
+			"resource_group":	"cloud-pak-sandbox-ibm",
+			"workers_count":	4,
+			"worker_pool_flavor":	"b3c.16x64",
+			"public_vlan":		"3225444",
+			"private_vlan":		"3225446",
+			"force_delete_storage":	true,
+			"project_name":		"ann-cp4i",
+			"environment":		"test",
+			"owner":		"terratest",
+			"roks_version":		4.7,
+			"entitled_registry_key":	os.Getenv("CP_ENTITLEMENT"), //pragma: allowlist secret
+			"entitled_registry_user_email":	os.Getenv("CP_ENTITLEMENT_EMAIL"),
 		},
 	})
 
@@ -39,11 +50,11 @@ func TestAccIBMCP4I(t *testing.T) {
 	terraform.InitAndApply(t, terraformOptions)
 
 	// Run `terraform output` to get the value of an output variable
-	endpoint := terraform.Output(t, terraformOptions, "endpoint")
-	if len(endpoint) <= 0 {
+	/* url := terraform.Output(t, terraformOptions, "url")
+	if len(url) <= 0 {
 		t.Fatal("Wrong output")
 	}
-	fmt.Println("Cloud Pak for Integration Console URL", endpoint)
+	fmt.Println("Cloud Pak for Integration Console URL", url)
 	user := terraform.Output(t, terraformOptions, "user")
 	if len(user) <= 0 {
 		t.Fatal("Wrong output")
@@ -53,5 +64,5 @@ func TestAccIBMCP4I(t *testing.T) {
 	if len(password) <= 0 {
 		t.Fatal("Wrong output")
 	}
-	fmt.Println("Cloud Pak for Integration Console Password", password)
+	fmt.Println("Cloud Pak for Integration Console Password", password)*/
 }

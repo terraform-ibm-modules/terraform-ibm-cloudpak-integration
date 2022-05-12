@@ -10,8 +10,11 @@ JOB_NAME="cloud-installer"
 WAITING_TIME=5
 
 echo "Waiting for Ingress domain to be created"
-while [[ -z $(kubectl get route -n openshift-ingress router-default -o jsonpath='{.spec.host}' 2>/dev/null) ]]; do
+route=$(kubectl get route -n openshift-ingress router-default -o jsonpath='{.spec.host}' 2>/dev/null)
+while [ -z "$route" ]; do
+  echo "Waiting for Ingress domain to be created"
   sleep $WAITING_TIME
+  route=$(kubectl get route -n openshift-ingress router-default -o jsonpath='{.spec.host}' 2>/dev/null)
 done
 
 # echo "Creating namespace ${NAMESPACE}"
@@ -56,33 +59,36 @@ kubectl apply -n ${NAMESPACE} -f -<<EOF
 ${NAVIGATOR_CONTENT}
 EOF
 
+#sleep 3600
 SLEEP_TIME="60"
-RUN_LIMIT=200
+RUN_LIMIT=80
 i=0
 
+STATUS_LONG=$(kubectl -n ${NAMESPACE} get platformnavigator cp4i-navigator --output=json | jq -c -r '.status')
+echo "STATUS_LONG == ${STATUS_LONG}"
 while true; do
   if ! STATUS_LONG=$(kubectl -n ${NAMESPACE} get platformnavigator cp4i-navigator --output=json | jq -c -r '.status'); then
     echo 'Error getting status'
     exit 1
   fi
 
-  echo $STATUS_LONG
-  STATUS=$(echo $STATUS_LONG | jq -c -r '.conditions[0].type')
+  STATUS=$(echo ${STATUS_LONG} | jq -c -r '.conditions[0].type')
+  echo "STATUS == ${STATUS}"
 
-  if [ "$STATUS" == "Ready" ]; then
+  if [ "${STATUS}" = "Ready" ]; then
     break
   fi
 
-  if [ "$STATUS" == "Failed" ]; then
+  if [ "${STATUS}" = "Failed" ]; then
     echo '=== Installation has failed ==='
     exit 1
   fi
 
   echo "Sleeping $SLEEP_TIME seconds..."
-  sleep $SLEEP_TIME
+  sleep ${SLEEP_TIME}
 
-  (( i++ ))
-  if [ "$i" -eq "$RUN_LIMIT" ]; then
+  i=$((i+1))
+  if [ "${i}" -eq "${RUN_LIMIT}" ]; then
     echo 'Timed out'
     exit 1
   fi

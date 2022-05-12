@@ -43,9 +43,12 @@ jobs:
 
       - name: Run Test
         working-directory: test
-        run: go test -v ./...
+        shell: bash
+        run: go test -timeout 2h -v ./...
         env:
           IC_API_KEY: ${{ secrets.ACCESS_KEY }}
+          CP_ENTITLEMENT: ${{ secrets.CP_ENTITLEMENT }}
+          CP_ENTITLEMENT_EMAIL: ${{ secrets.CP_ENTITLEMENT_EMAIL }}
       - uses: 8398a7/action-slack@v2
         with:
           status: ${{ job.status }}
